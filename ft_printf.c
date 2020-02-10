@@ -6,11 +6,17 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/09 21:45:53 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/10 16:30:11 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+    Главная функция, возвращает количество выведенных символов,
+    либо -1 при пустом входном формате.
+    Принимает формат и переменное количество аргументов.
+ */
 
 int     ft_printf(const char *format, ...)
 {
@@ -23,21 +29,41 @@ int     ft_printf(const char *format, ...)
     va_start(ap, format);
     if (format[0] == '%' && format[1] == '\0')
         return (i);
-    i = print_format(format, ap);
+    i = format_manager(format, ap);
+    va_end(ap);
     return (i);
 }
 
-ssize_t     print_format(const char *format, va_list ap)
+/*
+    Обработчик формата. Вызывает парсер формата, пока не закончилась строка формата.
+    После чтения очередного спецификатора вызывается оичстка параметров формата.
+    Возвращает количество выведенных символов.
+*/
+
+ssize_t     format_manager(const char *format, va_list ap)
 {
     ssize_t     i;
     t_format    *params;
 
     i = 0;
-    params = init_format();
-    return (0);
+    params = format_init();
+    while (format[params->count])
+    {
+        params->count++;
+        format_parser(format, params, ap);
+        format_clean(params);
+        if (format[params->count] == '\0')
+            break;
+        params->count++;
+    }
+    free(params);
+    return (i);
 }
 
-t_format    *init_format(void)
+/*
+    Задаются начальные значения неизвестного параметра формата
+*/
+t_format    *format_init(void)
 {
     t_format    *params;
 
@@ -47,7 +73,21 @@ t_format    *init_format(void)
     params->minus_zero = '\0';
     params->plus_zero = '\0';
     params->accurence = -1;
+    params->count = 0;
+    return (params);
+}
 
+/*
+    Обнуление к начальному состоянию структуры формата для чтения
+    следующего неизвестного параметра.
+*/
+void    format_clean(t_format *params)
+{
+    params->hash = '\0';
+    params->minus_zero = '\0';
+    params->plus_zero = '\0';
+    params->accurence = -1;
+    params->count = 0;;
 }
 
 int         main(void)
