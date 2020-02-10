@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:10 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/10 16:22:08 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/10 16:48:18 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ typedef struct  s_format
     //Флаг -, 0
     char    minus_zero;
     //Точность
-    int     accurence;
+    int     accuracy;
     //Флаг +, -
     char    plus_zero;
     //Текущий обрабатываемый символ формата
-    ssize_t count;
+    ssize_t count_f;
 }               t_format;
 
 int         ft_printf(const char *format, ...);
