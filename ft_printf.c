@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/10 16:30:11 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/10 16:54:19 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ ssize_t     format_manager(const char *format, va_list ap)
 
     i = 0;
     params = format_init();
-    while (format[params->count])
+    while (format[params->count_f])
     {
-        params->count++;
+        params->count_f++;
         format_parser(format, params, ap);
         format_clean(params);
-        if (format[params->count] == '\0')
+        if (format[params->count_f] == '\0')
             break;
-        params->count++;
+        params->count_f++;
     }
     free(params);
     return (i);
@@ -72,8 +72,8 @@ t_format    *format_init(void)
     params->hash = '\0';
     params->minus_zero = '\0';
     params->plus_zero = '\0';
-    params->accurence = -1;
-    params->count = 0;
+    params->accuracy = -1;
+    params->count_f = 0;
     return (params);
 }
 
@@ -86,8 +86,8 @@ void    format_clean(t_format *params)
     params->hash = '\0';
     params->minus_zero = '\0';
     params->plus_zero = '\0';
-    params->accurence = -1;
-    params->count = 0;;
+    params->accuracy = -1;
+    params->count_f = 0;;
 }
 
 int         main(void)
