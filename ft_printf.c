@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/10 16:54:19 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/10 18:55:04 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ ssize_t     format_manager(const char *format, va_list ap)
 
     i = 0;
     params = format_init();
-    while (format[params->count_f])
+    while (format[params->i])
     {
-        params->count_f++;
+        params->i++;
         format_parser(format, params, ap);
         format_clean(params);
-        if (format[params->count_f] == '\0')
+        if (format[params->i] == '\0')
             break;
-        params->count_f++;
+        params->i++;
     }
     free(params);
     return (i);
@@ -63,7 +63,7 @@ ssize_t     format_manager(const char *format, va_list ap)
 /*
     Задаются начальные значения неизвестного параметра формата
 */
-t_format    *format_init(void)
+t_format    *format_initialize(void)
 {
     t_format    *params;
 
@@ -71,23 +71,25 @@ t_format    *format_init(void)
         return (NULL);
     params->hash = '\0';
     params->minus_zero = '\0';
-    params->plus_zero = '\0';
-    params->accuracy = -1;
-    params->count_f = 0;
+    params->plus_space = '\0';
+    params->precision = -1;
+    params->i = 0;
+    params->width = 0;
     return (params);
 }
 
 /*
     Обнуление к начальному состоянию структуры формата для чтения
-    следующего неизвестного параметра.
+    следующего неизвестного параметра
 */
 void    format_clean(t_format *params)
 {
     params->hash = '\0';
     params->minus_zero = '\0';
-    params->plus_zero = '\0';
-    params->accuracy = -1;
-    params->count_f = 0;;
+    params->plus_space = '\0';
+    params->precision = -1;
+    params->i = 0;
+    params->width = 0;
 }
 
 int         main(void)
