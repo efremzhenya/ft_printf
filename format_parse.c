@@ -6,19 +6,23 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/10 19:14:10 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/10 19:29:51 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/* Читаем формат */
+/*
+	Читаем формат
+*/
 void	format_parser(const char *format, t_format *params, va_list ap)
 {
 	flags_parser(format, params);
 }
 
-/* Читаем флаги */
+/*
+	Читаем флаги
+*/
 void	flags_parser(const char *format, t_format *params)
 {
 	size_t i;
@@ -38,7 +42,9 @@ void	flags_parser(const char *format, t_format *params)
 	}
 }
 
-/* Читаем ширину и точность*/
+/*
+	Читаем ширину и точность
+*/
 void	width_prcsn_parser(const char *format, t_format *params, va_list ap)
 {
 	if (format[params->i] >= '0' && format[params->i] <= '9')
@@ -47,5 +53,8 @@ void	width_prcsn_parser(const char *format, t_format *params, va_list ap)
 		while (format[params->i]>= '0' && format[params->i] <= '9');
 			params->i++;
 	}
+	else if (format[params->i] == '*' && ++params->i)
+		params->width = va_arg(ap, int);
+
 
 }
