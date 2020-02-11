@@ -6,55 +6,94 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/10 19:29:51 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/11 20:52:32 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
-	Читаем формат
+	Читаем формат %[флаги][ширина][.точность][размер]тип
 */
-void	format_parser(const char *format, t_format *params, va_list ap)
+void	format_parser(const char *format, t_format *param, va_list ap)
 {
-	flags_parser(format, params);
+	flags_parser(format, param);
+	width_prcsn_parser(format, param, ap);
 }
 
 /*
-	Читаем флаги
+	Читаем флаги # + - 0 space
 */
-void	flags_parser(const char *format, t_format *params)
+void	flags_parser(const char *format, t_format *param)
 {
 	size_t i;
 
-	i = params->i;
+	i = param->i;
 	while (format[i] == '#' || format[i] == '0' || format[i] == ' ' ||
 			format[i] == '+' || format[i] == '-')
 	{
 		if (format[i] == '#')
-			params->hash = '#';
+			param->hash = '#';
 		else if ((format[i] == '-' || format[i] == '0')
-				&& params->minus_zero != '-')
-				params->minus_zero = format[i];
+				&& param->minus_zero != '-')
+				param->minus_zero = format[i];
 		else if ((format[i] == '+' || format[i] == ' ')
-				&& (params->plus_space != '+'))
-		i = ++params->i;
+				&& (param->plus_space != '+'))
+		i = ++param->i;
 	}
 }
 
 /*
 	Читаем ширину и точность
 */
-void	width_prcsn_parser(const char *format, t_format *params, va_list ap)
+void	width_prcsn_parser(const char *format, t_format *param, va_list ap)
 {
-	if (format[params->i] >= '0' && format[params->i] <= '9')
+	//Ширина
+	if (format[param->i] >= '0' && format[param->i] <= '9')
 	{
-		params->width = ft_atoi(format + params->i);
-		while (format[params->i]>= '0' && format[params->i] <= '9');
-			params->i++;
+		param->width = ft_atoi(format + param->i);
+		while (format[param->i]>= '0' && format[param->i] <= '9')
+			param->i++;
 	}
-	else if (format[params->i] == '*' && ++params->i)
-		params->width = va_arg(ap, int);
+	else if (format[param->i] == '*' && ++param->i)
+		param->width = va_arg(ap, int);
+	//Точность
+	if (format[param->i] == '.' && format[++param->i] != '*')
+	{
+		param->precision = ft_atoi(format + param->i);
+		while (format[param->i]>= '0' && format[param->i] <= '9')
+			param->i++;
+	}
+	else if (format[param->i] == '*' && ++param->i)
+		param->precision = va_arg(ap, int);
+}
 
+/*
+	Читаем размер. h - short, l - long ...
+*/
+void	size_parser( const char *format, t_format *param)
+{
+	ssize_t h;
+	ssize_t l;
+	ssize_t big_l;
 
+	big_l = 0;
+	l = 0;
+	h = 0;
+	while (format[param->i] == 'h' || format[param->i] == 'l' ||
+		format[param->i] =='L')
+	{
+		format[param->i] == 'h' ? h++ : format[param->i] == 'l' ? l++ : big_l++;
+		param->i++;
+	}
+	if (big_l)
+		param->size = 5;
+	else if (big_l == 2  || (l > 0 && l % 2 == 0))
+		param->size = 4;
+	else if (l > 0)
+		param->size = 3;
+	else if (h % 2 != 0 && h > 0)
+		param->size = 2;
+	else if (h > 0)
+		param->size = 1;
 }

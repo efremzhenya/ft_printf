@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/10 18:55:04 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/11 20:49:20 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ int     ft_printf(const char *format, ...)
 ssize_t     format_manager(const char *format, va_list ap)
 {
     ssize_t     i;
-    t_format    *params;
+    t_format    *param;
 
     i = 0;
-    params = format_init();
-    while (format[params->i])
+    param = format_initialize();
+    while (format[param->i])
     {
-        params->i++;
-        format_parser(format, params, ap);
-        format_clean(params);
-        if (format[params->i] == '\0')
+        param->i++;
+        format_parser(format, param, ap);
+        format_clean(param);
+        if (format[param->i] == '\0')
             break;
-        params->i++;
+        param->i++;
     }
-    free(params);
+    free(param);
     return (i);
 }
 
@@ -65,31 +65,31 @@ ssize_t     format_manager(const char *format, va_list ap)
 */
 t_format    *format_initialize(void)
 {
-    t_format    *params;
+    t_format    *param;
 
-    if (!(params = (t_format*)malloc(sizeof(t_format))))
+    if (!(param = (t_format*)malloc(sizeof(t_format))))
         return (NULL);
-    params->hash = '\0';
-    params->minus_zero = '\0';
-    params->plus_space = '\0';
-    params->precision = -1;
-    params->i = 0;
-    params->width = 0;
-    return (params);
+    param->hash = '\0';
+    param->minus_zero = '\0';
+    param->plus_space = '\0';
+    param->precision = -1;
+    param->i = 0;
+    param->width = 0;
+    return (param);
 }
 
 /*
     Обнуление к начальному состоянию структуры формата для чтения
     следующего неизвестного параметра
 */
-void    format_clean(t_format *params)
+void    format_clean(t_format *param)
 {
-    params->hash = '\0';
-    params->minus_zero = '\0';
-    params->plus_space = '\0';
-    params->precision = -1;
-    params->i = 0;
-    params->width = 0;
+    param->hash = '\0';
+    param->minus_zero = '\0';
+    param->plus_space = '\0';
+    param->precision = -1;
+    param->i = 0;
+    param->width = 0;
 }
 
 int         main(void)
