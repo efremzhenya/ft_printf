@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/11 20:52:32 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/12 19:01:57 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	format_parser(const char *format, t_format *param, va_list ap)
 {
 	flags_parser(format, param);
 	width_prcsn_parser(format, param, ap);
+	size_parser(format, param);
+	param->type = format[param->i];
 }
 
 /*
@@ -69,13 +71,13 @@ void	width_prcsn_parser(const char *format, t_format *param, va_list ap)
 }
 
 /*
-	Читаем размер. h - short, l - long ...
+	Читаем размер. h - short, l - long
 */
-void	size_parser( const char *format, t_format *param)
+void	size_parser(const char *format, t_format *param)
 {
-	ssize_t h;
-	ssize_t l;
-	ssize_t big_l;
+	size_t h;
+	size_t l;
+	size_t big_l;
 
 	big_l = 0;
 	l = 0;
@@ -96,4 +98,66 @@ void	size_parser( const char *format, t_format *param)
 		param->size = 2;
 	else if (h > 0)
 		param->size = 1;
+}
+
+/*
+	В соответcвии со спецификатором вызывает функцию печати аргумента для конкретного типа
+*/
+size_t		print_argument(t_format *param, char c, va_list ap)
+{
+	 if (c == 'd' || c == 'i')
+	 	return (print_int(param, ap));
+	else if (c == 'o')
+		return (print_oct(param, ap));
+	else if (c == 'u')
+		return (print_unsigned(param, ap));
+	else if (c == 'x' || c == 'X')
+		return (print_hex(param, ap));
+	else if (c == 's')
+		return (print_str(param, ap));
+	else if (c == 'p')
+		return (print_pointer(param, ap));
+	else if (c == 'f' || c == 'e' || c == 'g')
+		return (print_float(param, ap));
+	else if (c == '%')
+		return (print_percent(param));
+	else
+		return (print_chr(param, ap));
+}
+
+size_t		print_int(t_format *param, va_list ap)
+{
+	return;
+}
+size_t		print_oct(t_format *param, va_list ap)
+{
+	return;
+}
+size_t		print_unsigned(t_format *param, va_list ap)
+{
+	return;
+}
+size_t		print_hex(t_format *param, va_list ap)
+{
+	return;
+}
+size_t		print_str(t_format *param, va_list ap)
+{
+	return;
+}
+size_t		print_pointer(t_format *param, va_list ap)
+{
+	return;
+}
+size_t		print_percent(t_format *param)
+{
+	return;
+}
+size_t		print_chr(t_format *param, va_list ap)
+{
+	return;
+}
+size_t		print_float(t_format *param, va_list ap)
+{
+	return;
 }

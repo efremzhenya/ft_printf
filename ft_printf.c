@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/11 20:49:20 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/12 19:15:23 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ int     ft_printf(const char *format, ...)
     va_list ap;
     size_t  i;
 
-    i = 0;
     if (!format)
         return(-1);
     va_start(ap, format);
     if (format[0] == '%' && format[1] == '\0')
-        return (i);
+        return (0);
     i = format_manager(format, ap);
     va_end(ap);
     return (i);
@@ -36,28 +35,33 @@ int     ft_printf(const char *format, ...)
 
 /*
     Обработчик формата. Вызывает парсер формата, пока не закончилась строка формата.
-    После чтения очередного спецификатора вызывается оичстка параметров формата.
+    После чтения очередного спецификатора вызывается очистка параметров формата.
     Возвращает количество выведенных символов.
 */
 
-ssize_t     format_manager(const char *format, va_list ap)
+size_t     format_manager(const char *format, va_list ap)
 {
-    ssize_t     i;
+    size_t     length;
     t_format    *param;
 
-    i = 0;
+    length = 0;
     param = format_initialize();
     while (format[param->i])
     {
-        param->i++;
-        format_parser(format, param, ap);
-        format_clean(param);
-        if (format[param->i] == '\0')
-            break;
-        param->i++;
+        if (format[param->i] == '%')
+        {
+            param->i++;
+            format_parser(format, param, ap);
+            length += print_argument(param, param->type, ap);
+            format_clean(param);
+            if (format[param->i] == '\0')
+                break;
+        }
+        else
+            length += write(1, &format[param->i++], 1);
     }
     free(param);
-    return (i);
+    return (length);
 }
 
 /*
@@ -79,7 +83,7 @@ t_format    *format_initialize(void)
 }
 
 /*
-    Обнуление к начальному состоянию структуры формата для чтения
+    Обнуление к начальному состоянию для чтения
     следующего неизвестного параметра
 */
 void    format_clean(t_format *param)
