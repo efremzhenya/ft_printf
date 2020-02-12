@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/12 19:01:57 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/12 19:18:18 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,6 @@ size_t		print_argument(t_format *param, char c, va_list ap)
 		return (print_chr(param, ap));
 }
 
-size_t		print_int(t_format *param, va_list ap)
-{
-	return;
-}
 size_t		print_oct(t_format *param, va_list ap)
 {
 	return;
