@@ -9,9 +9,9 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-g",
-                "-Wall",
-                "-Wextra",
-                "-Werror",
+                // "-Wall",
+                // "-Wextra",
+                // "-Werror",
                 "${fileDirname}/libft/libft.a",
                 "${fileDirname}/*.c",
                 "-o",
