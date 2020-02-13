@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/12 19:18:18 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/13 14:43:19 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,53 +107,54 @@ size_t		print_argument(t_format *param, char c, va_list ap)
 {
 	 if (c == 'd' || c == 'i')
 	 	return (print_int(param, ap));
-	else if (c == 'o')
-		return (print_oct(param, ap));
-	else if (c == 'u')
-		return (print_unsigned(param, ap));
-	else if (c == 'x' || c == 'X')
-		return (print_hex(param, ap));
-	else if (c == 's')
-		return (print_str(param, ap));
-	else if (c == 'p')
-		return (print_pointer(param, ap));
-	else if (c == 'f' || c == 'e' || c == 'g')
-		return (print_float(param, ap));
-	else if (c == '%')
-		return (print_percent(param));
-	else
-		return (print_chr(param, ap));
+	// else if (c == 'o')
+	// 	return (print_oct(param, ap));
+	// else if (c == 'u')
+	// 	return (print_unsigned(param, ap));
+	// else if (c == 'x' || c == 'X')
+	// 	return (print_hex(param, ap));
+	// else if (c == 's')
+	// 	return (print_str(param, ap));
+	// else if (c == 'p')
+	// 	return (print_pointer(param, ap));
+	// else if (c == 'f' || c == 'e' || c == 'g')
+	// 	return (print_float(param, ap));
+	// else if (c == '%')
+	// 	return (print_percent(param));
+	// else
+	// 	return (print_chr(param, ap));
+	return (0);
 }
 
-size_t		print_oct(t_format *param, va_list ap)
-{
-	return;
-}
-size_t		print_unsigned(t_format *param, va_list ap)
-{
-	return;
-}
-size_t		print_hex(t_format *param, va_list ap)
-{
-	return;
-}
-size_t		print_str(t_format *param, va_list ap)
-{
-	return;
-}
-size_t		print_pointer(t_format *param, va_list ap)
-{
-	return;
-}
-size_t		print_percent(t_format *param)
-{
-	return;
-}
-size_t		print_chr(t_format *param, va_list ap)
-{
-	return;
-}
-size_t		print_float(t_format *param, va_list ap)
-{
-	return;
-}
+// size_t		print_oct(t_format *param, va_list ap)
+// {
+// 	return;
+// }
+// size_t		print_unsigned(t_format *param, va_list ap)
+// {
+// 	return;
+// }
+// size_t		print_hex(t_format *param, va_list ap)
+// {
+// 	return;
+// }
+// size_t		print_str(t_format *param, va_list ap)
+// {
+// 	return;
+// }
+// size_t		print_pointer(t_format *param, va_list ap)
+// {
+// 	return;
+// }
+// size_t		print_percent(t_format *param)
+// {
+// 	return;
+// }
+// size_t		print_chr(t_format *param, va_list ap)
+// {
+// 	return;
+// }
+// size_t		print_float(t_format *param, va_list ap)
+// {
+// 	return;
+// }

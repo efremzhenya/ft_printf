@@ -6,12 +6,12 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/12 19:15:23 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/13 20:32:05 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>
 /*
     Главная функция, возвращает количество выведенных символов,
     либо -1 при пустом входном формате.
@@ -54,7 +54,7 @@ size_t     format_manager(const char *format, va_list ap)
             format_parser(format, param, ap);
             length += print_argument(param, param->type, ap);
             format_clean(param);
-            if (format[param->i] == '\0')
+            if (format[param->i++] == '\0')
                 break;
         }
         else
@@ -92,12 +92,15 @@ void    format_clean(t_format *param)
     param->minus_zero = '\0';
     param->plus_space = '\0';
     param->precision = -1;
-    param->i = 0;
     param->width = 0;
+    param->size = 0;
+    param->type = '\0';
+    param->float_type = '\0';
 }
 
 int         main(void)
 {
-    ft_printf("","");
+    ft_printf("%Li", -554545456565);
+    printf("%Li", -554545456565);
     return (0);
 }
