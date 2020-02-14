@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:25:27 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/13 17:41:27 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/14 19:15:01 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	*split_and_assemble(t_format *params, char *str, char *tmp)
 				str[0] = params->type;
 		}
 	new = ft_strjoin(tmp, str);
-
 	if ((('x' == params->type || 'X' == params->type) && ft_strlen(tmp) > 1
 			&& tmp[0] == '0') || 'p' == params->type)
 		new[1] = ('x' == params->type || 'p' == params->type) ? 'x' : 'X';

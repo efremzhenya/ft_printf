@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/13 20:32:05 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/14 19:32:20 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void    format_clean(t_format *param)
 
 int         main(void)
 {
-    ft_printf("%Li", -554545456565);
-    printf("%Li", -554545456565);
+    ft_printf("%i", -55);
+    //printf("%Lu", -55);
     return (0);
 }
