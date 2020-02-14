@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/13 14:43:19 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/14 15:46:05 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ size_t		print_argument(t_format *param, char c, va_list ap)
 	 	return (print_int(param, ap));
 	// else if (c == 'o')
 	// 	return (print_oct(param, ap));
-	// else if (c == 'u')
-	// 	return (print_unsigned(param, ap));
+	 else if (c == 'u')
+	 	return (print_unsigned(param, ap));
 	// else if (c == 'x' || c == 'X')
 	// 	return (print_hex(param, ap));
 	// else if (c == 's')
@@ -130,10 +130,7 @@ size_t		print_argument(t_format *param, char c, va_list ap)
 // {
 // 	return;
 // }
-// size_t		print_unsigned(t_format *param, va_list ap)
-// {
-// 	return;
-// }
+
 // size_t		print_hex(t_format *param, va_list ap)
 // {
 // 	return;

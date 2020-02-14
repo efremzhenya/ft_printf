@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:17:54 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/13 20:32:48 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/14 15:31:27 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t		print_int(t_format *param, va_list ap)
 	char			*tmp;
 	char			*str;
 	ssize_t			sign;
-
+	//Приведение в тип в соответсвии с размерностью
 	if (param->size == 4)
 		arg = va_arg(ap, long long int);
 	else if (param->size == 3)
@@ -36,6 +36,7 @@ size_t		print_int(t_format *param, va_list ap)
 	else
 		arg = (int)va_arg(ap, long long int);
 	sign = (arg < 0) ? -1 : 1;
+	//Первеод в строку
 	tmp = (param->precision == 0 && arg == 0)
 		? ft_strdup("") : ft_itoa_base(arg * sign, 10, 0);
 	str = print_int2(param, tmp, sign);
@@ -47,15 +48,16 @@ size_t		print_int(t_format *param, va_list ap)
 char	*print_int2(t_format *param, char *str, int sign)
 {
 	char	*new;
-
+	//Добавление минуса в строку
 	if (sign == -1)
 	{
 		new = str;
 		str = ft_strjoin("-", str);
 		ft_strdel(&new);
 	}
+	//Если точность больше длины строки, то преобразовываем с соответствии с точностью
 	new = param->precision >= (int)ft_strlen(str)
-		? print_int3(param, str, ft_strlen(str)) : str;
+		? fill_zero(param, str, ft_strlen(str)) : str;
 	if (!ft_strchr(new, '-') && param->plus_space)
 	{
 		str = ('+' == param->plus_space)
@@ -66,19 +68,21 @@ char	*print_int2(t_format *param, char *str, int sign)
 	return (new);
 }
 
-char		*print_int3(t_format *param, char *str, size_t len)
+char		*fill_zero(t_format *param, char *str, size_t len)
 {
-	int		dif;
+	int		diff;
 	char	*tmp;
 	char	*new;
 
-	dif = ('-' == str[0])
+	/* Заполняем нулями до величины точности */
+	diff = (str[0] == '-')
 		? param->precision - (int)len + 1 : param->precision - (int)len;
-	tmp = ft_strnew(dif);
-	while (dif > 0)
-		tmp[dif-- - 1] = '0';
-	new = (('x' == param->type || 'X' == param->type) &&
-		('x' == str[1] || 'X' == str[1]))
+	tmp = ft_strnew(diff);
+	while (diff > 0)
+		tmp[diff-- - 1] = '0';
+	//Если преобразование в шестнадцатеричную...
+	new = ((param->type == 'x' || param->type == 'X') &&
+		(str[1] == 'x' || str[1] == 'X'))
 		? split_and_assemble(param, str, tmp)
 		: add_atributes_precision(tmp, str);
 	ft_strdel(&str);
