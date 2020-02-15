@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/14 19:32:20 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 20:13:43 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ void    format_clean(t_format *param)
     param->float_type = '\0';
 }
 
-int         main(void)
-{
-    ft_printf("%i", -55);
-    //printf("%Lu", -55);
-    return (0);
-}
+// int         main(void)
+// {
+//     ft_printf("%2$s, %1$s!", "world", "hello");
+//     //printf("%Lu", -55);
+//     return (0);
+// }

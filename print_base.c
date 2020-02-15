@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 17:16:19 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/14 19:11:31 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 17:24:31 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t		print_oct(t_format *param, va_list ap)
 	else
 		str = tmp;
 	len = ft_strlen(str);
-	if (param->precision >= len)
+	if (param->precision >= (int)len)
 		str = fill_zero(param, str, len);
 	str = print_width(param, str, ft_strlen(str));
 	len = write(1, str, ft_strlen(str));
