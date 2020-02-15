@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/14 19:16:06 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 16:07:12 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ size_t		print_argument(t_format *param, char c, va_list ap)
 	 	return (print_unsigned(param, ap));
 	else if (c == 'x' || c == 'X')
 	 	return (print_hex(param, ap));
-	// else if (c == 's')
-	// 	return (print_str(param, ap));
-	// else if (c == 'p')
-	// 	return (print_pointer(param, ap));
+	else if (c == 's')
+		return (print_str(param, ap));
+	else if (c == 'p')
+		return (print_pointer(param, ap));
 	// else if (c == 'f' || c == 'e' || c == 'g')
 	// 	return (print_float(param, ap));
 	else if (c == '%')
@@ -126,14 +126,6 @@ size_t		print_argument(t_format *param, char c, va_list ap)
 	return (0);
 }
 
-// size_t		print_str(t_format *param, va_list ap)
-// {
-// 	return;
-// }
-// size_t		print_pointer(t_format *param, va_list ap)
-// {
-// 	return;
-// }
 // size_t		print_float(t_format *param, va_list ap)
 // {
 // 	return;
