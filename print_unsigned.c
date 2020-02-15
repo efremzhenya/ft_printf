@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 15:35:21 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/14 16:48:10 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 18:40:02 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t		print_unsigned(t_format *param, va_list ap)
 	size_t				len;
 
 	arg = get_unsigned(param, ap);
-	tmp = (!arg && param->precision) ? ft_strdup("") : ft_itoa_base(arg, 10, 0);
+	tmp = (!arg && !param->precision) ? ft_strdup("") : ft_itoa_base(arg, 10, 0);
 	str = fill_zero_unsigned(param, tmp, ft_strlen(tmp));
 	str = print_width(param, str, ft_strlen(str));
 	len = write(1, str, ft_strlen(str));

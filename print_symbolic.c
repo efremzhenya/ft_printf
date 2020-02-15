@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 18:55:26 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/15 16:42:31 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 20:04:13 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,12 @@ size_t		print_str(t_format *param, va_list ap)
 	char *new;
 	size_t len;
 
-	if (!(arg = va_arg(ap, char*)))
-		arg = ft_strdup("(null)");
+	arg = ft_strdup((!(arg = va_arg(ap, char *))) ? "(null)" : arg);
 	if (param->precision != -1 && param->precision < (int)ft_strlen(arg))
 	{
 		len = 0;
 		new = ft_strnew(param->precision);
-		while (param->precision > len)
+		while (param->precision > (int)len)
 		{
 			new[len] = arg[len];
 			len++;
@@ -136,7 +135,7 @@ char		*pointer_precision(t_format *param, char *str, size_t len)
 
 	i = 0;
 	tmp = ft_strnew(param->precision - len + 2);
-	while (param->precision - (int)len + 2)
+	while (param->precision - (int)len + 2 > i)
 		tmp[i++] = '0';
 	new = (param->width <= (ft_strlen(tmp) + len))
 		? split_and_assemble(param, str, tmp) : ft_strjoin(tmp, str);

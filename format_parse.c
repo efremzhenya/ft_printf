@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 15:51:14 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/15 16:07:12 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 17:52:38 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	flags_parser(const char *format, t_format *param)
 				param->minus_zero = format[i];
 		else if ((format[i] == '+' || format[i] == ' ')
 				&& (param->plus_space != '+'))
+				param->plus_space = format[i];
 		i = ++param->i;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:17:54 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/14 15:31:27 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 18:02:35 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,20 @@ char	*print_int2(t_format *param, char *str, int sign)
 	{
 		new = str;
 		str = ft_strjoin("-", str);
-		ft_strdel(&new);
+		free(new);
 	}
 	//Если точность больше длины строки, то преобразовываем с соответствии с точностью
-	new = param->precision >= (int)ft_strlen(str)
-		? fill_zero(param, str, ft_strlen(str)) : str;
-	if (!ft_strchr(new, '-') && param->plus_space)
+	if (param->precision >= (int)ft_strlen(str))
+		str = fill_zero(param, str, ft_strlen(str));
+	if (!ft_strchr(str, '-') && param->plus_space)
 	{
+		new = str;
 		str = ('+' == param->plus_space)
 			? ft_strjoin("+", new) : ft_strjoin(" ", new);
-		ft_strdel(&new);
+		free(new);
 	}
-	new = print_width(param, new, ft_strlen(new));
-	return (new);
+	str = print_width(param, str, ft_strlen(str));
+	return (str);
 }
 
 char		*fill_zero(t_format *param, char *str, size_t len)
