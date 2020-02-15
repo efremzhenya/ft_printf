@@ -6,7 +6,7 @@
 /*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:00 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/15 20:13:43 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/15 20:52:08 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void    format_clean(t_format *param)
 
 // int         main(void)
 // {
-//     ft_printf("%2$s, %1$s!", "world", "hello");
-//     //printf("%Lu", -55);
+
+//     ft_printf("%-5+d\n", -42);
+//     printf("%-5+d", -42);
 //     return (0);
 // }
