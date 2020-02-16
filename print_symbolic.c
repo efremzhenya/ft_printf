@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_symbolic.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: lseema <lseema@student.21school.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 18:55:26 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/15 20:04:13 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/16 19:22:08 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ size_t		print_chr(t_format *param, va_list ap)
 
 size_t		print_str(t_format *param, va_list ap)
 {
-	char *arg;
-	char *new;
-	size_t len;
+	char	*arg;
+	char	*new;
+	size_t	len;
 
-	arg = ft_strdup((!(arg = va_arg(ap, char *))) ? "(null)" : arg);
+	arg = va_arg(ap, char *);
+	arg = ft_strdup((!arg) ? "(null)" : arg);
 	if (param->precision != -1 && param->precision < (int)ft_strlen(arg))
 	{
 		len = 0;
@@ -83,7 +84,7 @@ size_t		print_str(t_format *param, va_list ap)
 		arg = string_width(param, arg, len);
 	len = write(1, arg, ft_strlen(arg));
 	free(arg);
-	return len;
+	return (len);
 }
 
 char		*string_width(t_format *param, char *str, size_t len)
@@ -141,5 +142,5 @@ char		*pointer_precision(t_format *param, char *str, size_t len)
 		? split_and_assemble(param, str, tmp) : ft_strjoin(tmp, str);
 	ft_strdel(&tmp);
 	ft_strdel(&str);
-	return(new);
+	return (new);
 }

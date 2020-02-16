@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   print_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseema <lseema@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: lseema <lseema@student.21school.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 19:17:54 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/15 18:02:35 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/16 19:16:51 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
 /*
-	5 - L
-	4 - ll
-	3 - l
-	2 - h
-	1 - hh
+**	5 - L
+**	4 - ll
+**	3 - l
+**	2 - h
+**	1 - hh
 */
-size_t		print_int(t_format *param, va_list ap)
+
+size_t	print_int(t_format *param, va_list ap)
 {
 	long long int	arg;
 	char			*tmp;
 	char			*str;
 	ssize_t			sign;
-	//Приведение в тип в соответсвии с размерностью
+
 	if (param->size == 4)
 		arg = va_arg(ap, long long int);
 	else if (param->size == 3)
@@ -36,7 +38,6 @@ size_t		print_int(t_format *param, va_list ap)
 	else
 		arg = (int)va_arg(ap, long long int);
 	sign = (arg < 0) ? -1 : 1;
-	//Первеод в строку
 	tmp = (param->precision == 0 && arg == 0)
 		? ft_strdup("") : ft_itoa_base(arg * sign, 10, 0);
 	str = print_int2(param, tmp, sign);
@@ -48,14 +49,13 @@ size_t		print_int(t_format *param, va_list ap)
 char	*print_int2(t_format *param, char *str, int sign)
 {
 	char	*new;
-	//Добавление минуса в строку
+
 	if (sign == -1)
 	{
 		new = str;
 		str = ft_strjoin("-", str);
 		free(new);
 	}
-	//Если точность больше длины строки, то преобразовываем с соответствии с точностью
 	if (param->precision >= (int)ft_strlen(str))
 		str = fill_zero(param, str, ft_strlen(str));
 	if (!ft_strchr(str, '-') && param->plus_space)
@@ -69,19 +69,17 @@ char	*print_int2(t_format *param, char *str, int sign)
 	return (str);
 }
 
-char		*fill_zero(t_format *param, char *str, size_t len)
+char	*fill_zero(t_format *param, char *str, size_t len)
 {
 	int		diff;
 	char	*tmp;
 	char	*new;
 
-	/* Заполняем нулями до величины точности */
 	diff = (str[0] == '-')
 		? param->precision - (int)len + 1 : param->precision - (int)len;
 	tmp = ft_strnew(diff);
 	while (diff > 0)
 		tmp[diff-- - 1] = '0';
-	//Если преобразование в шестнадцатеричную...
 	new = ((param->type == 'x' || param->type == 'X') &&
 		(str[1] == 'x' || str[1] == 'X'))
 		? split_and_assemble(param, str, tmp)
