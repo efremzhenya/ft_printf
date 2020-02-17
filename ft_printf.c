@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseema <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: lseema <lseema@student.21school.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 18:36:11 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/16 18:48:59 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/17 18:40:35 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 /*
 **	Возвращает количество выведенных символов,
@@ -50,6 +49,8 @@ size_t		format_manager(const char *format, va_list ap)
 	param = format_initialize();
 	while (format[param->i])
 	{
+		if (format[param->i] == '{' && format[param->i + 1 != '%'])
+		 	param->i += colorize(&format[param->i + 1]);
 		if (format[param->i] == '%')
 		{
 			param->i++;
@@ -100,11 +101,4 @@ void		format_clean(t_format *param)
 	param->size = 0;
 	param->type = '\0';
 	param->float_type = '\0';
-}
-
-int			main(void)
-{
-	ft_printf("%-.*i\n", 1);
-	printf("%.*i", 1);
-	return (0);
 }

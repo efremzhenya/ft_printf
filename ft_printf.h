@@ -6,12 +6,21 @@
 /*   By: lseema <lseema@student.21school.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:10 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/16 19:09:38 by lseema           ###   ########.fr       */
+/*   Updated: 2020/02/17 18:47:50 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_PRINTF_H
 # define _FT_PRINTF_H
+# define BLACK		"\x1b[30m"
+# define RED		"\x1b[31m"
+# define GREEN		"\x1b[32m"
+# define YELLOW		"\x1b[33m"
+# define BLUE		"\x1b[34m"
+# define MAGENTA	"\x1b[35m"
+# define CYAN 		"\x1b[36m"
+# define WHITE 		"\x1b[37m"
+# define RESET 		"\x1b[0m"
 # include <stdlib.h>
 # include <stdarg.h>
 # include "libft/libft.h"
@@ -61,5 +70,7 @@ char				*add_atributes_precision(char *tmp, char *str);
 unsigned long long	get_unsigned(t_format *param, va_list ap);
 char				*string_width(t_format *param, char *str, size_t len);
 char				*pointer_precision(t_format *param, char *str, size_t len);
+int					colorize(const char *s);
+int					put_color(char *color);
 
 #endif
