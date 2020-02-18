@@ -29,6 +29,13 @@ typedef struct		s_format
 	char	float_type;
 }					t_format;
 
+typedef struct		s_float
+{
+	unsigned long	mant;
+	unsigned short	exp:15;
+	unsigned char	sign:1;
+}					t_float;
+
 int					ft_printf(const char *format, ...);
 size_t				format_manager(const char *format, va_list ap);
 void				format_clean(t_format *param);
@@ -48,6 +55,7 @@ size_t				print_str(t_format *param, va_list ap);
 size_t				print_pointer(t_format *param, va_list ap);
 size_t				print_percent(t_format *param);
 size_t				print_chr(t_format *param, va_list ap);
+size_t 				print_float(t_format *param, va_list ap);
 char				*ft_itoa_base(unsigned long long value, int base, int reg);
 char				*print_int2(t_format *param, char *str, int sign);
 char				*fill_zero(t_format *param, char *str, size_t len);

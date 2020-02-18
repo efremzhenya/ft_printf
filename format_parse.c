@@ -124,9 +124,14 @@ size_t	print_argument(t_format *param, char c, va_list ap)
 		return (print_str(param, ap));
 	else if (c == 'p')
 		return (print_pointer(param, ap));
+	else if (c == 'f' || c == 'e' || c == 'g')
+	{
+		param->float_type = c;
+		return (print_float(param, ap));
+	}
 	else if (c == '%')
 		return (print_percent(param));
 	else
 		return (print_chr(param, ap));
-	return (0);
+//	return (0);								/* До этого ретёрна разве дойдет? */
 }
