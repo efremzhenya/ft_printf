@@ -1,6 +1,15 @@
 
 #include "ft_printf.h"
 
+void	fill_float_params(t_format *params)
+{
+	params->left = ft_strdup("");
+	params->right = ft_strdup("");
+	params->zero = "0";
+	params->ten = "10";
+	params->one = "1";
+}
+
 char		*strjf(char *s1, char *s2, int k1, int k2)
 {
 	char 	*s3;
@@ -24,7 +33,7 @@ char		*strjf(char *s1, char *s2, int k1, int k2)
 	return (s3);
 }
 
-char		*except(unsigned long m, int sign)
+char		*exceptions(unsigned long m, int sign)
 {
 	char	*res;
 
