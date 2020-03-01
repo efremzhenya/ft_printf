@@ -28,8 +28,8 @@ typedef struct		s_format
 	char	type;
 	char	float_type;
 	int 	sign;
-	char	*left;
-	char 	*right;
+	char	*bdot;
+	char 	*adot;
 	char	*zero;
 	char	*one;
 	char 	*ten;
@@ -47,6 +47,11 @@ union				u_float
 	long double		num;
 	t_float 		val;
 }					fl;
+
+typedef struct 		s_add
+{
+	char			*
+}					t_add;
 
 int					ft_printf(const char *format, ...);
 size_t				format_manager(const char *format, va_list ap);
@@ -81,9 +86,13 @@ char				*add_atributes_precision(char *tmp, char *str);
 unsigned long long	get_unsigned(t_format *param, va_list ap);
 char				*string_width(t_format *param, char *str, size_t len);
 char				*pointer_precision(t_format *param, char *str, size_t len);
-void				fill_float_params(t_format *params);
+void				clear_float_params(t_format *params);
 char				*strjf(char *s1, char *s2, int k1, int k2);
+char 				*ft_add(char *s1, char *s2, int negs, int clr);
 size_t				str_to_out(char *str);
 char				*exceptions(unsigned long m, int sign);
+size_t 				ft_max(char *s1, char *s2);
+size_t 				ft_min(char *s1, char *s2);
+int 				ft_abs(int nb);
 
 #endif

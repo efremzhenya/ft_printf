@@ -1,7 +1,27 @@
 
 #include "ft_printf.h"
 
-void	fill_float_params(t_format *params)
+int 		ft_abs(int	nb)
+{
+	return (nb > 0 ? nb : -nb);
+}
+
+size_t 		ft_max(char *s1, char *s2)
+{
+	size_t 	l1;
+	size_t	l2;
+
+	return ((l1 = ft_strlen(s1)) > (l2 = ft_strlen(s2)) ? l1 : l2);
+}
+
+size_t 		ft_min(char *s1, char *s2)
+{
+	size_t 	l1;
+	size_t	l2;
+
+	return ((l1 = ft_strlen(s1)) < (l2 = ft_strlen(s2)) ? l1 : l2);
+
+void	clr_float_params(t_format *params)
 {
 	params->left = ft_strdup("");
 	params->right = ft_strdup("");

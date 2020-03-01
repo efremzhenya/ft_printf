@@ -1,9 +1,43 @@
 #include "ft_printf.h"
 
+
+t_format 			*ftoa_exp(int expoftwo, char *res, t_format *format)
+{
+	int				i;
+
+	i = 0;
+	while (ft_abs(expoftwo) > i++)
+		res = ft_add(res, res, 0, 1);
+	if (expoftwo < 0)
+	{
+		res = ft_negs(res);
+		format->adot = ft_add(res, format->adot, 1, 2);
+	}
+	else
+		format->bdot = ft_add(res, format->bdot, 0, 2);
+	return (format);
+}
+
 char 				*ft_ftoa(char *mnt, int e, t_format *format)
 {
 	char 			*res;
 	int				i;
+	int 			shift;
+	int 			val;
+	int 			expoftwo;
+
+	i = 63;
+	shift = 0;
+	while (i >= 0)
+	{
+		val = mnt[i];
+		if (val == 1)
+		{
+			res  = ft_strdup("1");
+			expoftwo = e - shift;
+			format = ftoa_exp(expoftwo, res, format);
+		}
+	}
 
 }
 
@@ -52,8 +86,8 @@ size_t 				print_float(t_format *param, va_list ap)
 	unsigned long	m;
 	char 			*res;
 
-	if (param->left && param->right)
-		fill_float_params(param);
+	if (param->bdot && param->adot)
+		clear_float_params(param);
 	if (ap == NULL)
 		return (0);
 	if (param->size == 5)
