@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lseema <lseema@student.21school.ru>        +#+  +:+       +#+        */
+/*   By: lseema <lseema@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 20:09:10 by lseema            #+#    #+#             */
-/*   Updated: 2020/02/17 18:47:50 by lseema           ###   ########.fr       */
+/*   Updated: 2020/03/03 21:33:42 by lseema           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,73 @@ typedef struct		s_format
 	int		size;
 	char	type;
 	char	float_type;
+	int		sign;
+	char	*bdot;
+	char	*adot;
+	char	*zero;
+	char	*one;
+	char	*ten;
 }					t_format;
+
+typedef struct		s_float
+{
+	unsigned long	mant;
+	unsigned short	exp:15;
+	unsigned char	sign:1;
+}					t_float;
+
+union				u_float
+{
+	long double		num;
+	t_float 		val;
+}					fl;
+
+typedef struct			s_calc
+{
+	char				*zero;
+	char				*ten;
+	char				*one;
+	char				*rem;
+	char				*k;
+	char				*out;
+}						t_calc;
+
+typedef struct			s_mult
+{
+	char				*zero;
+	char				*preout;
+	char				*out;
+	char				*stra;
+	char				*strb;
+	char				*hereout;
+	size_t				longest;
+	unsigned int		carry;
+	int					i;
+}						t_mult;
+
+typedef struct			s_sum
+{
+	unsigned int		carry;
+	char				*carryc;
+	char				*out;
+	char				*stra;
+	char				*strb;
+	size_t				l;
+	size_t				s;
+}						t_sum;
+
+typedef struct			s_subs
+{
+	int					carry;
+	int					temp;
+	int					rem;
+	char				*stra;
+	char				*strb;
+	size_t				l;
+	size_t				s;
+	char				*out;
+	char				*remc;
+}						t_subs;
 
 int					ft_printf(const char *format, ...);
 size_t				format_manager(const char *format, va_list ap);
@@ -57,6 +123,7 @@ size_t				print_str(t_format *param, va_list ap);
 size_t				print_pointer(t_format *param, va_list ap);
 size_t				print_percent(t_format *param);
 size_t				print_chr(t_format *param, va_list ap);
+
 char				*ft_itoa_base(unsigned long long value, int base, int reg);
 char				*print_int2(t_format *param, char *str, int sign);
 char				*fill_zero(t_format *param, char *str, size_t len);
